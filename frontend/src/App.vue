@@ -5,8 +5,8 @@
     </h1>
     file={{ file }}
     <form>
-      <input type="file">
-      <button type="submit">Отправить</button>
+      <input type="file" @change="processFile($event)">
+      <button type="button" name="filedate" @click="uploadFile">Отправить</button>
     </form>
   </div>
 </template>
@@ -19,12 +19,15 @@ export default {
   name: 'App',
   data() {
     return {
-      file: '',
+      file: {},
     };
   },
   methods: {
+    processFile(event) {
+      const res = event.target.files[0];
+      this.file = res;
+    },
     uploadFile() {
-      console.log('wertey');
       uploadFile.uploadFile(this.file);
     },
   },
