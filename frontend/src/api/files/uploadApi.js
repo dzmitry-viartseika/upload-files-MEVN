@@ -3,11 +3,15 @@ import * as domain from '@/api/constants/domain';
 const axios = require('axios');
 
 export default {
-  uploadFile(file) {
-    console.log('file', file);
+  addFile(formData) {
+    console.log('formData', formData);
     const instWithCred = axios.create({
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Accept: 'application/json',
+      },
       baseURL: domain.UPLOAD_API,
     });
-    return instWithCred.post('/', { file });
+    return instWithCred.post('/', formData);
   },
 };

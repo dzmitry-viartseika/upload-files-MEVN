@@ -3,33 +3,23 @@
     <h1>
       Upload Images MEVN
     </h1>
-    file={{ file }}
-    <form>
-      <input type="file" @change="processFile($event)">
-      <button type="button" name="filedate" @click="uploadFile">Отправить</button>
-    </form>
+    <fileUpload />
   </div>
 </template>
 
 <script>
 
-import uploadFile from '@/api/files/uploadApi';
+import fileUpload from '@/components/fileUpload.vue';
 
 export default {
   name: 'App',
   data() {
     return {
-      file: {},
+      file: '',
     };
   },
-  methods: {
-    processFile(event) {
-      const res = event.target.files[0];
-      this.file = res;
-    },
-    uploadFile() {
-      uploadFile.uploadFile(this.file);
-    },
+  components: {
+    fileUpload,
   },
 };
 </script>

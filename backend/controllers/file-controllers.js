@@ -3,6 +3,7 @@
 class AppController {
     constructor(){}
     addNewFile = async (req, res, next) => {
+        console.log('wertey');
         const fileDate  = res.file;
         if (!fileDate) {
             res.send('Ошибка при загрузки файла')
