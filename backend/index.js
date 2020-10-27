@@ -5,6 +5,16 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
+
+const storageConfig = multer.diskStorage({
+    destination: (req,file,cb) => {
+        cb(null, "uploads")
+    },
+    filename: (req, file, cb) => {
+    cb(null, file.originalname)
+    }
+})
+
 const fileFilter = (req, file, cb) => {
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
     if (!allowedTypes.includes(file.mimetype)) {
@@ -18,6 +28,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     dest: './uploads',
     fileFilter,
+    storageConfig,
     limits: {
         fileSize: 5000000
     }
@@ -39,5 +50,9 @@ app.use((err, req, res, next) => {
         return;
     }
 });
+
+app.use(express.static(__dirname))
+
+app.use(multer({storage: storageConfig}).single('filedata'));
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
